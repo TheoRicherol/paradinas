@@ -1,0 +1,12 @@
+RewriteEngine On
+Options +FollowSymLinks
+RewriteRule home /index.php?page=home
+RewriteRule signin /index.php?page=signin
+RewriteRule login /index.php?page=login
+RewriteRule account /index.php?page=account
+RewriteRule addproduct /index.php?page=addproduct
+RewriteRule adminproducts /index.php?page=productsadmin
+RewriteRule productupdate /index.php?page=productupdate
+RewriteRule update /index.php?page=update
+RewriteRule ^category/(.*)$ /index.php?page=category&category=$1
+RewriteRule ^productdetail/(.*)$ /index.php?page=productdetail&produit=$1
