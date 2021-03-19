@@ -17,11 +17,11 @@ class Liningcolors extends Database
         return $this->id;
     }
 
-    public function setLeatherColor($color)
+    public function setLiningColor($color)
     {
         $this->color = $color;
     }
-    public function getLeatherColor()
+    public function getLiningColor()
     {
         return $this->color;
     }
@@ -33,15 +33,23 @@ class Liningcolors extends Database
 
     public function addColor($color)
     {
-        $query = "INSERT INTO leather_color (color) VALUES (:color)";
+        $query = "INSERT INTO color_lining (color) VALUES (:color)";
         $buildQuery = parent::getDb()->prepare($query);
         $buildQuery->bindValue("color", $color, PDO::PARAM_STR);
         return $buildQuery->execute();
     }
 
+    public function deleteColor($id)
+    {
+        $query = "DELETE FROM color_lining WHERE `color_lining`.`id` = :id";
+        $buildQuery = parent::getDb()->prepare($query);
+        $buildQuery->bindValue("id", $id, PDO::PARAM_INT);
+        return $buildQuery->execute();
+    }
+
     public function getAllColors()
     {
-        $query = "SELECT * FROM `color_lining`";
+        $query = "SELECT `color_lining`.`id` , `color_lining`.`color` , `color_lining_picture`.`id` AS id_picture , `color_lining_picture`.`color_lining_picture` FROM `color_lining` LEFT JOIN `color_lining_picture` ON `color_lining_picture`.`id_color_lining` = `color_lining`.`id` ";
         $buildQuery = parent::getDb()->prepare($query);
         $buildQuery->execute();
         $resultQuery = $buildQuery->fetchAll(PDO::FETCH_ASSOC);

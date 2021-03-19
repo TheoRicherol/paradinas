@@ -30,7 +30,7 @@ include 'view/includes/header.php';
                     <?php
                     foreach ($productleatherColors as $color) {
                     ?>
-                        <option value="<?= $color["id"] ?>"><?= $color["color"] ?></option>
+                        <option value="<?= $color["id"] ?>"><?= $color["color"]?></option>
                     <?php
                     }
                     ?>

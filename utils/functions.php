@@ -20,11 +20,8 @@ function updateSessionVar($arrayParameters)
     $_SESSION["user"] = $user;
 }
 
-
-
 function uploadPicture($id, $directory, $type)
 {
-    $Picture = new Picture();
     $errorMessages = [];
     $destination = "view/assets/img/$directory";
     $maxsize = 10000000;
@@ -40,13 +37,12 @@ function uploadPicture($id, $directory, $type)
                     $tmp_name = $_FILES["photos"]["tmp_name"][$key];
                     $name = filter_var(htmlspecialchars(basename($_FILES["photos"]["name"][$key])), FILTER_SANITIZE_STRING, FILTER_FLAG_ENCODE_LOW);
                     move_uploaded_file($tmp_name, "$destination/$name");
-                    $type->addPicture("$destination/$name", $id);
+                    $type->addPicture("../" . "$destination/$name", $id);
                 }
             }
         }
     }
 }
-
 
 function getUserTypeForRestriction()
 {

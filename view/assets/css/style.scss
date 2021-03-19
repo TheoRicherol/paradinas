@@ -16,6 +16,10 @@ li {
   list-style: none;
 }
 
+img {
+  display: block;
+}
+
 button {
   color: white;
   border: none;
@@ -53,20 +57,22 @@ table {
     border: 1px;
     border-style: none none solid none;
     overflow: hidden;
+
+    img {
+      display: block;
+      height: 2vh;
+    }
   }
 
-  .buttons-modif‘ {
-    background: red;
-  }
 
 }
 
 body {
   font-family: "Bodoni Moda", serif;
   font-weight: 400;
-  font-variant: normal;
+  font-variant: small-caps;
   width: 100%;
-  background-color: rgba($color, $alpha: .1);
+  background-color: rgba($color, $alpha: .05);
 
   @media (max-width : 850px) {
 
@@ -565,15 +571,34 @@ body {
       }
     }
 
+    .double-table {
+      display: flex;
+      width: 80%;
+
+      div {
+        margin: 1vw;
+      }
+
+      table {
+        width: 100%;
+      }
+
+      h1 {
+        text-align: left;
+      }
+
+    }
+
     .buttons-add {
       margin: 1vh;
       display: flex;
       flex-direction: row;
       width: 50%;
-      a{
+
+      a {
         width: 100%;
-        margin:1vh;
-        padding:1vh;
+        margin: 1vh;
+        padding: 1vh;
       }
     }
 
@@ -597,6 +622,10 @@ body {
         padding: 2vw;
         width: 100%;
         margin: 3vw;
+
+        h2 {
+          margin-bottom: 2vh;
+        }
 
         @media (max-width: 850px) {
           width: 80%;
@@ -740,7 +769,8 @@ body {
     .collection-2 {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      // grid-template-rows: repeat(2, 30vh);
+      // grid-auto-rows: auto;
+      grid-template-rows: repeat(4, 15vh);
       grid-gap: 1rem;
       width: 80%;
       margin: 1vw;
@@ -752,6 +782,7 @@ body {
       }
 
       .item {
+        height: 10vh;
 
         img {
           min-width: 100%;
@@ -804,29 +835,24 @@ body {
       }
     }
 
-    img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
-
     .collection-products {
+      width: 90vw;
       display: grid;
       grid-template-columns: repeat(3, 1fr);
       grid-gap: 1rem;
-      width: 80%;
       margin: 1vw;
-
+      height: 100%;
 
 
       @media (max-width:850px) {
         width: 100%;
+        height: 100%;
         grid-gap: 3vw;
-        grid-template-columns: 1fr;
+        grid-template-columns: repeat(2, 1fr);
       }
 
       .item-product {
-        height: 30vh;
+        height: 35vh;
         display: flex;
         align-items: center;
         justify-content: center;
@@ -834,7 +860,13 @@ body {
 
         .product-pic {
           transition: all .5s ease;
+          height: 100%;
 
+          img {
+            width: 100%;
+            min-height: 100%;
+            object-fit: cover;
+          }
 
         }
 
@@ -845,11 +877,17 @@ body {
           opacity: 0;
           transition: all .5s ease;
 
-          .product-title {
-            font-size: 2rem;
-            line-height: 300%;
+          @media (max-width: 850px) {
+            position: relative;
           }
 
+          .product-title {
+            font-size: 2rem;
+            line-height: 150%;
+          }
+          sup{
+            text-decoration:underline;
+          }
           .product-price {
             font-size: 2.5rem;
           }
@@ -872,29 +910,38 @@ body {
       }
 
       #product-pics {
-        width: 50%;
+        width: 35vw;
         display: flex;
         flex-direction: column;
+        overflow: scroll;
 
         @media (max-width: 850px) {
-          width: 100%;
+          width: 80vw;
         }
 
         #product-pic-primary {
           height: 55vh;
+          overflow: hidden;
+
+          img {
+            width: 100%;
+            min-height: 100%;
+            object-fit: cover;
+          }
         }
 
         #product-pic-secondary {
-          width: 100%;
           display: flex;
           flex-direction: row;
           height: 10vh;
+          overflow: scroll;
 
           img {
+            overflow: hidden;
             width: 20%;
-            // height: 100%;
+            // min-height: 80%;
             object-fit: cover;
-            margin: 1vw 1vw 0 0;
+            padding: 1vw 1vw 0 0;
           }
         }
 
@@ -910,7 +957,6 @@ body {
     }
 
   }
-
 
   .errors {
     font-family: Arial, Helvetica, sans-serif;

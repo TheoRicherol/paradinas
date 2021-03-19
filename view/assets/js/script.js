@@ -114,7 +114,7 @@ if (desktop.matches) {
 collectionProducts.forEach(product => {
     product.addEventListener("mouseenter", function () {
         product.querySelector(".product-infos").style.opacity = 1;
-        product.querySelector(".product-pic").style.filter = "grayscale(100%) opacity(25%) blur(1px)";
+        product.querySelector(".product-pic").style.filter = "grayscale(100%) opacity(50%) blur(1px)";
     })
     product.addEventListener("mouseleave", function () {
         product.querySelector(".product-infos").style.opacity = 0;

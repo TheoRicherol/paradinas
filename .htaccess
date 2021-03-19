@@ -8,5 +8,8 @@ RewriteRule addproduct /index.php?page=addproduct
 RewriteRule adminproducts /index.php?page=productsadmin
 RewriteRule productupdate /index.php?page=productupdate
 RewriteRule update /index.php?page=update
+RewriteRule add+leather+color /index.php?page=addleathercolor
+RewriteRule add+lining+color /index.php?page=addliningcolor
+RewriteRule colorlist /index.php?page=colorlist
 RewriteRule ^category/(.*)$ /index.php?page=category&category=$1
 RewriteRule ^productdetail/(.*)$ /index.php?page=productdetail&produit=$1
