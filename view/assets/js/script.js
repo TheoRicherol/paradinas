@@ -2,7 +2,7 @@ let titleAnim = document.getElementById("titleAnim"),
     menu = document.getElementById("menu"),
     collection = document.querySelectorAll(".item"),
     collectionProducts = document.querySelectorAll(".item-product"),
-    desktop = window.matchMedia("(min-width:851px)"),
+    desktop = window.matchMedia("(min-width:850px)"),
     closeMenu = document.querySelector(".close-menu"),
     burgerMenu = document.querySelector(".contLigne"),
     popupToggle = document.getElementById("icon-popup"),
@@ -18,9 +18,6 @@ let titleAnim = document.getElementById("titleAnim"),
     }
 });
 
-
-
-
 // burger menu
 
 burgerMenu.addEventListener('click', function () {
@@ -30,8 +27,6 @@ burgerMenu.addEventListener('click', function () {
     menu.classList.toggle("nav-hide");
     menu.style.transition("all .5s ease");
 })
-
-
 
 
 function showNav() {
@@ -45,7 +40,6 @@ function hideNav() {
 }
 
 // Script pour responsive
-
 
 
 if (desktop.matches) {
@@ -74,9 +68,9 @@ if (desktop.matches) {
     });
 
     popupToggle.addEventListener("click", function () {
-        if (popupUser.style == "none") {
+        if (popupUser.style.display == "none") {
             popupUser.style.display = "block";
-        } else if (popupUser.style === "block") {
+        } else if (popupUser.style.display == "block") {
             popupUser.style.display = "none";
         }
     });
@@ -95,6 +89,20 @@ if (desktop.matches) {
         }, 0)
     });
 
+    // Collections de produits 
+
+    collectionProducts.forEach(product => {
+        product.addEventListener("mouseenter", function () {
+            product.querySelector(".product-infos").style.opacity = 1;
+            product.querySelector(".product-pic").style.filter = "grayscale(100%) opacity(50%) blur(1px)";
+        })
+        product.addEventListener("mouseleave", function () {
+            product.querySelector(".product-infos").style.opacity = 0;
+            product.querySelector(".product-pic").style.filter = "";
+        })
+
+    })
+
 } else {
     popupToggle.addEventListener("touchstart", function (evt) {
         evt.preventDefault();
@@ -109,28 +117,13 @@ if (desktop.matches) {
 }
 
 
-// Collections de produits 
-
-collectionProducts.forEach(product => {
-    product.addEventListener("mouseenter", function () {
-        product.querySelector(".product-infos").style.opacity = 1;
-        product.querySelector(".product-pic").style.filter = "grayscale(100%) opacity(50%) blur(1px)";
-    })
-    product.addEventListener("mouseleave", function () {
-        product.querySelector(".product-infos").style.opacity = 0;
-        product.querySelector(".product-pic").style.filter = "";
-    })
-
-})
-
-
 // Slideshow images dans fiche produits
 
 let picSecondary = document.querySelectorAll(".pic-secondary"),
     picPrimary = document.querySelector("#pic-primary");
 
 picSecondary.forEach(picture => {
-    if (picture.src == picSecondary.src){
+    if (picture.src == picSecondary.src) {
         picture.classList.toggle("images-selected");
     }
     picture.onclick = function () {
@@ -175,10 +168,7 @@ if (password != null) {
 }
 
 
-
-
-// AJAX verif 
-
+// AJAX verif
 
 
 let usernameInput = document.getElementById("username");
@@ -210,3 +200,16 @@ if (usernameInput != null) {
         }
     })
 }
+
+// Ajax
+
+var httpRequest = new XMLHttpRequest();
+
+httpRequest.onreadystatechange = function () {
+    if (httpRequest.readyState === 4) {
+        alert("ok");
+    }
+}
+
+httpRequest.open('GET', 'https://atelierp.local:8890', true);
+httpRequest.send();

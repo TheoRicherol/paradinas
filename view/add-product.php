@@ -1,6 +1,15 @@
 <?php
+
+// Require of the functions file
+
 require "utils/functions.php";
+
+// Usage of the functions of the file required to see if the connected user is an admin, if not, redirect on the home page
+
 getUserTypeForRestriction();
+
+// Include header of all th pages, which contains navbar
+
 include "controllers/header-controller.php";
 ?>
 
@@ -17,7 +26,9 @@ include "controllers/header-controller.php";
                     <div class="form-group">
                         <div>
                             <label for="product_name">Nom du produit : </label>
+                            <!-- Get Values of the POST  -->
                             <input type="text" name="product_name" id="product_name" value="<?= isset($_POST["product_name"]) ? $_POST["product_name"] : "" ?>">
+                            <!-- Get the errors  -->
                             <p class="error"><?= isset($errorMessages["product_name"]) ? $errorMessages["product_name"] : "" ?></p>
                         </div>
                         <div>
@@ -35,7 +46,7 @@ include "controllers/header-controller.php";
             </fieldset>
         </div>
         <div class="col">
-            <fieldset> Description
+            <fieldset> 
                 <div class="form-section">
                     <div class="form-group">
                         <div>

@@ -2,9 +2,7 @@
 
 $title = "Ajouter un produit";
 
-var_dump($_POST);
-
-$regexPrice = "/^[0-9]*[.][0-9]{2}$/";
+$regexPrice = "/^[0-9]*$/";
 
 // Validation du formulaire d'ajout du produit
 
@@ -42,8 +40,8 @@ if (isset($_POST["addProduct"])) {
         $Product->addProduct($arrayParameters);
         //Appel du fichier de fonctions annexes
         require "utils/functions.php";
-        // Appel d'une fonction du fichier appelé ) la ligne précédente
-        uploadPicture($Product->getDb()->lastInsertId(), "product" , $Picture);
+        // Appel d'une fonction du fichier appelé la ligne précédente pour uploader une/des photos sur le serveur
+        uploadPicture($Product->getDb()->lastInsertId(), "product", $Picture);
         header("Location: /adminproducts");
     }
 }

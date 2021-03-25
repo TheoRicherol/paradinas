@@ -49,7 +49,7 @@ class Leathercolors extends Database
 
     public function getAllColors()
     {
-        $query = "SELECT `color_leather`.`id` , `color_leather`.`color` , `color_leather_picture`.`id` AS id_picture , `color_leather_picture`.`color_leather_picture` FROM `color_leather` LEFT JOIN `color_leather_picture` ON `color_leather_picture`.`id_color_leather` = `color_leather`.`id` ";
+        $query = "SELECT `color_leather`.`id` , `color_leather`.`color` AS color_leather , `color_leather_picture`.`id` AS id_picture , `color_leather_picture`.`color_leather_picture` FROM `color_leather` LEFT JOIN `color_leather_picture` ON `color_leather_picture`.`id_color_leather` = `color_leather`.`id` ";
         $buildQuery = parent::getDb()->prepare($query);
         $buildQuery->execute();
         $resultQuery = $buildQuery->fetchAll(PDO::FETCH_ASSOC);

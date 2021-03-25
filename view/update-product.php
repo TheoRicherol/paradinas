@@ -3,7 +3,6 @@ require "utils/functions.php";
 getUserTypeForRestriction();
 include 'view/includes/header.php';
 ?>
-
 <div id="content-form">
     <div id="slogan">
         <h1><?= $title ?></h1>

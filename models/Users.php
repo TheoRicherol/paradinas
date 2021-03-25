@@ -10,110 +10,110 @@ class Users extends Database
     private $user_mail;
     private $user_phone;
 
-    /**
-     * @return mixed
-     */
-    public function getUserFirstname()
-    {
-        return $this->user_firstname;
-    }
-
-    /**
-     * @param mixed $user_firstname
-     */
-    public function setUserFirstname($user_firstname)
-    {
-        $this->user_firstname = $user_firstname;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getUserLastname()
-    {
-        return $this->user_lastname;
-    }
-
-    /**
-     * @param mixed $user_lastname
-     */
-    public function setUserLastname($user_lastname)
-    {
-        $this->user_lastname = $user_lastname;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getUserBirthdate()
-    {
-        return $this->user_birthdate;
-    }
-
-    /**
-     * @param mixed $user_birthdate
-     */
-    public function setUserBirthdate($user_birthdate)
-    {
-        $this->user_birthdate = $user_birthdate;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getUserMail()
-    {
-        return $this->user_mail;
-    }
-
-    /**
-     * @param mixed $user_mail
-     */
-    public function setUserMail($user_mail)
-    {
-        $this->user_mail = $user_mail;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getUserPhone()
-    {
-        return $this->user_phone;
-    }
-
-    /**
-     * @param mixed $user_phone
-     */
-    public function setUserPhone($user_phone)
-    {
-        $this->user_phone = $user_phone;
-    }
-
-    /**
-     * @param mixed $id
-     */
-    public function setId($id)
-    {
-        $this->id = $id;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getId()
-    {
-        return $this->id;
-    }
-
     public function __construct()
     {
         parent::__construct();
     }
 
+//    /**
+//     * @return mixed
+//     */
+//    public function getUserFirstname()
+//    {
+//        return $this->user_firstname;
+//    }
+//
+//    /**
+//     * @param mixed $user_firstname
+//     */
+//    public function setUserFirstname($user_firstname)
+//    {
+//        $this->user_firstname = $user_firstname;
+//    }
+//
+//    /**
+//     * @return mixed
+//     */
+//    public function getUserLastname()
+//    {
+//        return $this->user_lastname;
+//    }
+//
+//    /**
+//     * @param mixed $user_lastname
+//     */
+//    public function setUserLastname($user_lastname)
+//    {
+//        $this->user_lastname = $user_lastname;
+//    }
+//
+//    /**
+//     * @return mixed
+//     */
+//    public function getUserBirthdate()
+//    {
+//        return $this->user_birthdate;
+//    }
+//
+//    /**
+//     * @param mixed $user_birthdate
+//     */
+//    public function setUserBirthdate($user_birthdate)
+//    {
+//        $this->user_birthdate = $user_birthdate;
+//    }
+//
+//    /**
+//     * @return mixed
+//     */
+//    public function getUserMail()
+//    {
+//        return $this->user_mail;
+//    }
+//
+//    /**
+//     * @param mixed $user_mail
+//     */
+//    public function setUserMail($user_mail)
+//    {
+//        $this->user_mail = $user_mail;
+//    }
+//
+//    /**
+//     * @return mixed
+//     */
+//    public function getUserPhone()
+//    {
+//        return $this->user_phone;
+//    }
+//
+//    /**
+//     * @param mixed $user_phone
+//     */
+//    public function setUserPhone($user_phone)
+//    {
+//        $this->user_phone = $user_phone;
+//    }
+//
+//    /**
+//     * @return mixed
+//     */
+//    public function getId()
+//    {
+//        return $this->id;
+//    }
+//
+//    /**
+//     * @param mixed $id
+//     */
+//    public function setId($id)
+//    {
+//        $this->id = $id;
+//    }
+
     public function addUser($arrayParameters)
     {
-        $query = "INSERT INTO `users` (user_firstname, user_lastname , user_birthdate , user_mail, user_phone , user_adress_number , user_adress_street , user_adress_complement , user_adress_postal_code , user_adress_city, user_adress_country, user_username, user_password) VALUES (:user_firstname , :user_lastname , :user_birthdate , :user_mail, :user_phone , :user_adress_number , :user_adress_street , :user_adress_complement , :user_adress_postal_code  , :user_adress_city, :user_adress_country, :user_username, :user_password);";
+        $query = 'INSERT INTO `users` (`user_firstname`, `user_lastname` , `user_birthdate` , `user_mail`, `user_phone` , `user_adress_number` , `user_adress_street` , `user_adress_complement` , `user_adress_postal_code` , `user_adress_city`, `user_adress_country`, `user_username`, `user_password`) VALUES (:user_firstname , :user_lastname , :user_birthdate , :user_mail, :user_phone , :user_adress_number , :user_adress_street , :user_adress_complement , :user_adress_postal_code  , :user_adress_city, :user_adress_country, :user_username, :user_password);';
         $buildQuery = parent::getDb()->prepare($query);
         $buildQuery->bindValue("user_firstname", $arrayParameters["firstname"], PDO::PARAM_STR);
         $buildQuery->bindValue("user_lastname", $arrayParameters["lastname"], PDO::PARAM_STR);
@@ -152,12 +152,18 @@ class Users extends Database
         return $buildQuery->execute();
     }
 
-    public function deleteuser($id){
+    /**
+     * @param $id
+     * @return mixed
+     */
+    public function deleteuser($id)
+    {
         $query = "DELETE FROM `users`WHERE `id` = :id;";
         $buildQuery = parent::getDb()->prepare($query);
-        $buildQuery->bindValue("id" , $id , PDO::PARAM_INT);
+        $buildQuery->bindValue("id", $id, PDO::PARAM_INT);
         return $buildQuery->execute();
     }
+
 
     public function verifyUser($username)
     {
@@ -169,13 +175,14 @@ class Users extends Database
         return !empty($resultQuery) ? $resultQuery : false;
     }
 
-    public function searchUser(string $username){
+    public function searchUser(string $username)
+    {
         $query = "SELECT `users`.`id` FROM `users` WHERE user_username = :username OR user_mail = :username";
         $buildQuery = parent::getDb()->prepare($query);
-        $buildQuery->bindValue("username" , $username , PDO::PARAM_STR);
+        $buildQuery->bindValue("username", $username, PDO::PARAM_STR);
         $buildQuery->execute();
         $resultQuery = $buildQuery->fetch(PDO::FETCH_ASSOC);
-        if(!empty($resultQuery)){
+        if (!empty($resultQuery)) {
             return $resultQuery;
         } else {
             return "Valide";

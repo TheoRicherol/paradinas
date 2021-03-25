@@ -8,6 +8,8 @@ require "models/LiningColors.php";
 require "models/LeatherColorsPics.php";
 require "models/LiningColorsPics.php";
 require "models/ProductCategorie.php";
+require "models/isIn.php";
+require "models/Basket.php";
 require "controllers/index-controller.php";
 
 if (isset($_GET["page"]) && $_GET["page"] == "home") {
