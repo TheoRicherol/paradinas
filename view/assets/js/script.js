@@ -203,13 +203,13 @@ if (usernameInput != null) {
 
 // Ajax
 
-var httpRequest = new XMLHttpRequest();
-
-httpRequest.onreadystatechange = function () {
-    if (httpRequest.readyState === 4) {
-        alert("ok");
-    }
-}
-
-httpRequest.open('GET', 'https://atelierp.local:8890', true);
-httpRequest.send();
+// var httpRequest = new XMLHttpRequest();
+//
+// httpRequest.onreadystatechange = function () {
+//     if (httpRequest.readyState === 4) {
+//         alert("ok");
+//     }
+// }
+//
+// httpRequest.open('GET', 'https://atelierp.local:8890', true);
+// httpRequest.send();

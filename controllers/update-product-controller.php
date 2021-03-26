@@ -3,7 +3,7 @@
 $title = "Modifier un produit";
 
 $currentProduct = $Product->getOneProductInfo($_POST["updateProduct"]);
-$product_categorie = $ProductCategorie->getAllProductsType();
+$product_categorie = $ProductCategory->getAllProductsType();
 
 $regexPrice = "/^[0-9]*$/";
 

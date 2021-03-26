@@ -1,8 +1,7 @@
 <?php
+var_dump($_SESSION);
 
-$productCategoryList = $ProductCategorie->getAllProductsType();
-
-if(isset($_POST["logoutUser"])){
+if (isset($_POST["logoutUser"])) {
     session_destroy();
     header("Location: /home");
 }

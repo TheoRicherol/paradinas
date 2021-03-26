@@ -47,6 +47,21 @@ class Basket extends Database
         return $buildQuery->execute();
     }
 
+    /**
+     * @param $id
+     * @return int
+     * Count the number of items of the basket
+     */
+    public function countItemsInBasket($id)
+    {
+        $query = "SELECT COUNT(*) AS 'nbrItems' FROM is_in WHERE id_basket = :id_basket ";
+        $buildQuery = parent::getDb()->prepare($query);
+        $buildQuery->bindValue("id_basket" , $id , PDO::PARAM_INT);
+        $buildQuery->execute();
+        $resultQuery = $buildQuery->fetch(PDO::FETCH_ASSOC);
+        return !empty($resultQuery) ? $resultQuery : false;
+    }
+
     public function deleteBasket($id){
         $query = "DELETE FROM `basket` WHERE basket.id = :id;";
         $buildQuery = parent::getDb()->prepare($query);

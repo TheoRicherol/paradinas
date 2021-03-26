@@ -2,7 +2,7 @@
 
 $title = "Sur-Mesure - Atelier paradinas";
 
-$categorieOfThePage = $ProductCategorie->getThisPageCategorie($_GET["category"]);
-$productsOfThisPage = $ProductCategorie->getAllProductsFromOneType($_GET["category"]);
+$categorieOfThePage = $ProductCategory->getThisPageCategorie($_GET["category"]);
+$productsOfThisPage = $ProductCategory->getAllProductsFromOneType($_GET["category"]);
 
 require "view/products-user.php";
