@@ -13,3 +13,4 @@ RewriteRule add+lining+color /index.php?page=addliningcolor
 RewriteRule colorlist /index.php?page=colorlist
 RewriteRule ^category/(.*)$ /index.php?page=category&category=$1
 RewriteRule ^productdetail/(.*)$ /index.php?page=productdetail&produit=$1
+RewriteRule basket /index.php?page=basket

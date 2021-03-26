@@ -9,4 +9,5 @@ $LiningcolorsPics = new LiningColorsPics();
 $LeathercolorsPics = new LeatherColorsPics();
 $Basket = new Basket();
 $IsIn = new IsIn();
+$User = new Users();
 $productCategory = $ProductCategory->getAllProductsType();

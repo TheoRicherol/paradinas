@@ -47,6 +47,16 @@ class Basket extends Database
         return $buildQuery->execute();
     }
 
+
+    public function controlUsersBasket($id){
+        $query = "SELECT `basket`.`id` FROM  `basket` WHERE `basket`.`id_users` = :id";
+        $buildQuery = parent::getDb()->prepare($query);
+        $buildQuery->bindValue("id" , $id , PDO::PARAM_INT);
+        $buildQuery->execute();
+        $resultQuery = $buildQuery->fetch(PDO::FETCH_ASSOC);
+        return !empty($resultQuery) ? $resultQuery : false;
+    }
+
     /**
      * @param $id
      * @return int
@@ -54,7 +64,7 @@ class Basket extends Database
      */
     public function countItemsInBasket($id)
     {
-        $query = "SELECT COUNT(*) AS 'nbrItems' FROM is_in WHERE id_basket = :id_basket ";
+        $query = "SELECT SUM(quantity) AS 'nbrItems' FROM is_in WHERE id_basket = :id_basket";
         $buildQuery = parent::getDb()->prepare($query);
         $buildQuery->bindValue("id_basket" , $id , PDO::PARAM_INT);
         $buildQuery->execute();
@@ -67,6 +77,15 @@ class Basket extends Database
         $buildQuery = parent::getDb()->prepare($query);
         $buildQuery->bindValue("id" , $id , PDO::PARAM_INT );
         return $buildQuery->execute();
+    }
+
+    public function getBasketContents($id){
+        $query = "SELECT products.product_name , product_type.product_type , products.product_price , is_in.quantity , is_in.quantity * product_price AS total , is_in.id , color_leather.color AS leather  , color_lining.color AS lining FROM basket INNER JOIN is_in on basket.id = is_in.id_basket INNER JOIN products ON is_in.id_product = products.id INNER JOIN product_type ON products.id_product_type = product_type.id INNER JOIN color_leather ON is_in.id_color_leather = color_leather.id INNER JOIN color_lining ON is_in.id_color_lining = color_lining.id WHERE basket.id = :id";
+        $buildQuery = parent::getDb()->prepare($query);
+        $buildQuery->bindValue("id" , $id , PDO::PARAM_INT);
+        $buildQuery->execute();
+        $resultQuery = $buildQuery->fetchAll(PDO::FETCH_ASSOC);
+        return !empty($resultQuery) ? $resultQuery : false;
     }
 
 }

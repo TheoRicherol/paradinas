@@ -1,6 +1,5 @@
 <?php
 
-
 class Users extends Database
 {
     private $id;

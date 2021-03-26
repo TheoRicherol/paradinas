@@ -1,13 +1,11 @@
 <?php
 
 $title = "Connexion - Atelier Paradinas";
-require "models/Users.php";
 
 
 if (!isset($_SESSION["user"])) {
     if (isset($_POST["connectUser"])) {
 
-        $User = new Users();
         $regexUsername = "/^.*$/";
         $regexPassword = "/^(?=.*\d)(?=.*[A-Z])(?=.*[a-z])(?=.*[^\w\d\s:])([^\s]){6,}$/";
 
@@ -38,7 +36,9 @@ if (!isset($_SESSION["user"])) {
                 require "utils/functions.php";
                 if (password_verify($arrayParameters["password"], $resultQuery["user_password"])) {
                     updateSessionVar($resultQuery);
-                    header("Location: /account");
+                    $_SESSION["basket"] = $Basket->controlUsersBasket($_SESSION["user"]["id"]);
+                    $_SESSION["basketItems"] = $Basket->countItemsInBasket($_SESSION["basket"]["id"]);
+                    header("Location: /home");
                 } else {
                     $errorMessage["login"] = "Il y a eu un soucis dans la saisie de vos identifiants";
                 }
@@ -46,7 +46,9 @@ if (!isset($_SESSION["user"])) {
         }
     }
 } else {
-    header("Location: /account");
+    header("Location: /home");
 }
+
+
 
 require "view/login.php";

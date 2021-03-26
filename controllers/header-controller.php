@@ -1,5 +1,4 @@
 <?php
-var_dump($_SESSION);
 
 if (isset($_POST["logoutUser"])) {
     session_destroy();

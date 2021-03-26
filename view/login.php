@@ -2,7 +2,9 @@
 include "controllers/header-controller.php";
 ?>
 <div id="content-form">
-    <h1>Connexion</h1>
+	<div id="slogan">
+		<h1>Connexion</h1>
+	</div>
     <form action="" method="post">
         <div class="col col-sign-in">
             <fieldset>

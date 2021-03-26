@@ -1,7 +1,7 @@
 <?php
 require "utils/functions.php";
 getUserTypeForRestriction();
-require "view/includes/header.php";
+include "view/includes/header.php";
 ?>
 
 <div id="content-form">

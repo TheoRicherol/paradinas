@@ -10,6 +10,7 @@ require "models/LiningColorsPics.php";
 require "models/ProductCategorie.php";
 require "models/isIn.php";
 require "models/Basket.php";
+require "models/Users.php";
 require "controllers/index-controller.php";
 
 if (isset($_GET["page"]) && $_GET["page"] == "home") {
@@ -38,6 +39,9 @@ if (isset($_GET["page"]) && $_GET["page"] == "home") {
 	require "controllers/add-lining-color-controller.php";
 } else if (isset($_GET["page"]) && $_GET["page"] == "colorlist") {
 	require "controllers/color-list-controller.php";
-} else {
+} else if (isset($_GET["page"]) && $_GET["page"] == "basket") {
+    require "controllers/basket-controller.php";
+}
+else {
 	header("Location: /home");
 }
