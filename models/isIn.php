@@ -179,8 +179,8 @@ class IsIn extends Database
 
     public function increaseQuantity($id)
     {
-        $query = "UPDATE `is_in` SET `quantity` = `quantity` + 1 WHERE `id` = :id;
-                  UPDATE is_in INNER JOIN products on is_in.id_product = products.id  SET `total` = `quantity` * `products`.`product_price` WHERE `id` = :id";
+        $query = "UPDATE `is_in` SET `quantity` = `quantity` + 1 WHERE `is_in`.`id` = :id;
+                  UPDATE is_in INNER JOIN products on `is_in`.`id_product` = `products`.`id`  SET `is_in`.`total` = `quantity` * `products`.`product_price` WHERE `is_in`.`id` = :id;";
         $buildQuery = parent::getDb()->prepare($query);
         $buildQuery->bindValue("id", $id, PDO::PARAM_INT);
         $buildQuery->execute();
@@ -188,9 +188,9 @@ class IsIn extends Database
 
     public function decreaseQuantity($id)
     {
-        $query = "UPDATE `is_in` SET `quantity` = `quantity` - 1 WHERE is_in.`id` = :id;
-                UPDATE is_in INNER JOIN products on is_in.id_product = products.id  SET `total` = `quantity` * `products`.`product_price` WHERE is_in.`id` = :id;
-                DELETE FROM is_in WHERE `quantity`< 1";
+        $query = "UPDATE `is_in` SET `quantity` = `quantity` - 1 WHERE `is_in`.`id` = :id;
+                UPDATE `is_in` INNER JOIN `products` on `is_in`.`id_product` = `products`.`id`  SET `total` = `quantity` * `products`.`product_price` WHERE `is_in`.`id` = :id;
+                DELETE FROM `is_in` WHERE `quantity`< 1";
         $buildQuery = parent::getDb()->prepare($query);
         $buildQuery->bindValue("id", $id, PDO::PARAM_INT);
         $buildQuery->execute();
@@ -214,7 +214,7 @@ class IsIn extends Database
 
     public function addToBasket($arrayParameters)
     {
-        $query = "INSERT INTO `is_in` ( `id_product`  , `id_basket`, `id_color_leather`, `id_color_lining`, `engraving` , `quantity` , `total`) VALUES (:id_product, :id_basket, :id_color_leather , :id_color_lining , :engraving , default , default )";
+        $query = "INSERT INTO `is_in` ( `id_product`  , `id_basket`, `id_color_leather`, `id_color_lining`, `engraving` , `quantity` , `total`) VALUES (:id_product, :id_basket, :id_color_leather , :id_color_lining , :engraving , default , (SELECT products.product_price FROM products WHERE id = :id_product) )";
         $buildQuery = parent::getDb()->prepare($query);
         $buildQuery->bindValue("id_product", $arrayParameters["id_product"], PDO::PARAM_INT);
         $buildQuery->bindValue("id_basket", $arrayParameters["id_basket"], PDO::PARAM_INT);

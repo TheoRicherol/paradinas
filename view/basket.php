@@ -27,7 +27,7 @@ require "view/includes/header.php";
 						<td><?= $value["product_type"]; ?></td>
 						<td><?= $value["leather"]; ?></td>
 						<td><?= $value["lining"]; ?></td>
-						<td> <?= $value["product_price"] ?>€</td>
+						<td> <?= $value["product_price"] ?> &euro; </td>
 						<td>
 							<form method="post" action="">
 								<button type="submit" name="decrease" value="<?= $value["id"] ?>">-</button>
@@ -39,7 +39,7 @@ require "view/includes/header.php";
 								<button type="submit" name="increase" value="<?= $value["id"] ?>">+</button>
 							</form>
 						</td>
-						<td><?= $value["total"]; ?>€</td>
+						<td><?= $value["total"]; ?> &euro; </td>
 						<td>
 							<form method="post" action="">
 								<button type="submit" name="delete" value="<?= $value["id"] ?>"><i
@@ -59,7 +59,7 @@ require "view/includes/header.php";
 			?>
 			</tbody>
 		</table>
-		<p></p>
+		<p><?= $basketTotal ?></p>
 	</div>
 
 <?php
