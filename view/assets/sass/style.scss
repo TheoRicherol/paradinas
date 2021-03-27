@@ -1,12 +1,13 @@
 @import url('https://fonts.googleapis.com/css2?family=Bodoni+Moda:wght@400;700&display=swap');
 
-$color:#1E1E24;
+$color: #1E1E24;
 
 * {
   //  border: 1px solid black;
   margin: 0;
   padding: 0;
 }
+
 
 a {
   text-decoration: none;
@@ -28,12 +29,12 @@ img {
 }
 
 /* IMAGE STYLES */
-[type=radio]+img {
+[type=radio] + img {
   cursor: pointer;
 }
 
 /* CHECKED STYLES */
-[type=radio]:checked+img {
+[type=radio]:checked + img {
   outline: 2px solid $color;
 }
 
@@ -43,7 +44,7 @@ button {
   border-radius: 3px;
   font-size: 1rem;
   background-color: $color;
-  height: 5vh;
+  height: 40px;
   width: 100%;
   transition: all .5s ease;
   pointer-events: auto;
@@ -59,6 +60,10 @@ table {
   width: 80%;
   padding: 1vw;
   border-collapse: collapse;
+  @media (max-width: 450px) {
+    .non-displayed-mobile{
+      display: none;
+    }}
 
   thead {
     color: white;
@@ -69,21 +74,22 @@ table {
     height: 4vh;
   }
 
+  .reduced-cell{
+    width:30px;
+  }
+
   td,
   th {
     padding: .5vw;
     border: 1px;
     border-style: none none solid none;
-    overflow: hidden;
 
+    }
     img {
       display: block;
       height: 2vh;
     }
   }
-
-
-}
 
 body {
   font-family: "Bodoni Moda", serif;
@@ -92,7 +98,9 @@ body {
   width: 100%;
   background-color: rgba($color, $alpha: .05);
 
-  @media (max-width : 850px) {
+
+
+  @media (max-width: 850px) {
 
     // Burger menu on mobile
 
@@ -204,7 +212,7 @@ body {
     top: 0;
     z-index: 200;
 
-    @media (max-width:850px) {
+    @media (max-width: 850px) {
 
       .nav-show {
         background-color: $color;
@@ -344,7 +352,7 @@ body {
             padding: .5vw;
             color: rgba($color, $alpha: 1);
 
-            @media screen and (max-width:850px) {
+            @media screen and (max-width: 850px) {
               font-size: 1rem;
               margin-left: 2vw;
             }
@@ -379,7 +387,7 @@ body {
         }
       }
 
-      @media (max-width:850px) {
+      @media (max-width: 850px) {
         height: 8vh;
       }
 
@@ -390,7 +398,7 @@ body {
         img {
           max-height: 8vh;
 
-          @media (max-width:850px) {
+          @media (max-width: 850px) {
             height: 6vh;
           }
         }
@@ -450,7 +458,7 @@ body {
     align-items: center;
     width: 100%;
 
-    @media (max-width : 850px) {
+    @media (max-width: 850px) {
       top: 8vh;
     }
 
@@ -486,7 +494,7 @@ body {
       width: 80%;
       margin: 1vw;
 
-      @media (max-width:850px) {
+      @media (max-width: 850px) {
         grid-template-columns: 1fr;
         grid-template-rows: repeat(2, 30vh);
         width: 100%;
@@ -540,7 +548,7 @@ body {
       width: 80%;
       margin: 1vw;
 
-      @media (max-width:850px) {
+      @media (max-width: 850px) {
         width: 100%;
         grid-gap: 3vw;
         // grid-template-columns: repeat(2, 1fr);
@@ -601,6 +609,13 @@ body {
     .double-table {
       display: flex;
       width: 80%;
+      @media (max-width:600px)
+      {
+        flex-direction:column;
+        h1{
+          font-size:1.2rem;
+        }
+      }
 
       div {
         margin: 1vw;
@@ -618,9 +633,8 @@ body {
 
     .buttons-add {
       margin: 1vh;
-      display: flex;
+      padding: 1vh;
       flex-direction: row;
-      width: 50%;
 
       a {
         width: 100%;
@@ -637,7 +651,7 @@ body {
       text-align: left;
       margin: 3vw;
 
-      @media(max-width:850px) {
+      @media(max-width: 850px) {
         flex-direction: column;
         align-items: center;
       }
@@ -694,7 +708,7 @@ body {
       flex-direction: row;
       justify-content: space-between;
 
-      @media screen and (max-width : 850px) {
+      @media screen and (max-width: 850px) {
         width: 100%;
         flex-direction: column;
       }
@@ -711,7 +725,7 @@ body {
         border: 0px;
         margin: 2vh;
 
-        @media screen and (max-width : 850px) {
+        @media screen and (max-width: 850px) {
           width: 100%;
           margin: 0;
         }
@@ -737,7 +751,8 @@ body {
           padding: 1vw;
           margin: 1vw;
 
-          @media screen and (max-width:850px) {}
+          @media screen and (max-width: 850px) {
+          }
 
           .form-section {
             margin: 1vh;
@@ -787,7 +802,7 @@ body {
         flex-direction: column;
         width: 100%;
 
-        @media screen and (max-width : 850px) {
+        @media screen and (max-width: 850px) {
           width: 100%;
         }
       }
@@ -802,7 +817,7 @@ body {
       width: 80%;
       margin: 1vw;
 
-      @media (max-width:850px) {
+      @media (max-width: 850px) {
         width: 100%;
         grid-gap: 3vw;
         grid-template-columns: repeat(2, 1fr);
@@ -822,7 +837,6 @@ body {
     h4 {
       font-size: 2rem;
     }
-
 
 
   }
@@ -870,7 +884,7 @@ body {
       height: 100%;
       align-items: space-between;
 
-      @media (max-width:850px) {
+      @media (max-width: 850px) {
         width: 100%;
         height: 100%;
       }
@@ -956,7 +970,6 @@ body {
           }
 
 
-
         }
 
       }
@@ -971,7 +984,7 @@ body {
       justify-content: center;
       margin: 3vw;
 
-      @media (max-width: 850px) {
+      @media (max-width: 600px) {
         flex-direction: column;
       }
 
@@ -988,6 +1001,9 @@ body {
         #product-pic-primary {
           height: 55vh;
           overflow: hidden;
+          @media (max-width: 850px){
+            height: 35vh;
+          }
 
           img {
             width: 100%;
@@ -1020,7 +1036,25 @@ body {
         margin-left: 5vw;
         width: 50%;
         font-variant: normal;
+        @media (max-width:600px){
+          margin: 4vh 0 0 0;
+          width: 100%;
+        }
 
+        input {
+          border-radius: 0;
+          border: 1px gainsboro;
+          border-style: none none solid none;
+          height: 3vh;
+          width: 100%;
+          padding-left: .5vw;
+        }
+
+        input:focus {
+          outline: none;
+          border: 1px $color;
+          border-style: none none solid none;
+        }
         .details {
           margin-bottom: 1.5vw;
         }

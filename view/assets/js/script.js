@@ -7,7 +7,9 @@ let titleAnim = document.getElementById("titleAnim"),
     burgerMenu = document.querySelector(".contLigne"),
     popupToggle = document.getElementById("icon-popup"),
     popupUser = document.getElementById("popup-user"),
-    regexPassword = /^(?=.*\d)(?=.*[A-Z])(?=.*[a-z])(?=.*[^\w\d\s:])([^\s]){6,}$/;
+    regexPassword = /^(?=.*\d)(?=.*[A-Z])(?=.*[a-z])(?=.*[^\w\d\s:])([^\s]){6,}$/,
+    regexEngraving = /^[a-zA-Z]{0,3}$/;
+
 
 [...collection].forEach(element => {
     element.onmouseover = function () {
@@ -132,6 +134,28 @@ picSecondary.forEach(picture => {
     }
 })
 
+// Vérif Gravure
+
+let gravure = document.getElementById("engraving"),
+    gravureDiv = document.getElementById("div-engraving");
+if (gravure !=null) {
+    let error = document.createElement("p",)
+    gravure.addEventListener("keyup", function () {
+        if(!gravure.value.match(regexEngraving)){
+            gravure.style.border = "2px red";
+            gravure.style.borderStyle = "none none solid none";
+            gravureDiv.append(error);
+            error.classList.add("errors");
+            error.innerText = "La gravure est limitée à 3 lettres";
+        } else{
+            gravure.style.border = "2px green";
+            gravure.style.borderStyle = "none none solid none";
+            error.innerText = "";
+        }
+   })
+}
+
+
 // Verif password en temps réel
 
 let password = document.getElementById("password"),
@@ -141,9 +165,8 @@ if (password != null) {
 
     password.onkeyup = function () {
         if (password.value == "") {
-
+            divpwd.innerText = "Veuillez entrer quelque chose";
         } else if (!password.value.match(regexPassword)) {
-            console.log("ok");
             password.style.border = "2px red";
             password.style.borderStyle = "none none solid none";
         } else {
@@ -207,9 +230,10 @@ if (usernameInput != null) {
 //
 // httpRequest.onreadystatechange = function () {
 //     if (httpRequest.readyState === 4) {
-//         alert("ok");
+//       alert(this.responseText);
 //     }
 // }
 //
-// httpRequest.open('GET', 'https://atelierp.local:8890', true);
+// httpRequest.open('POST', '/basket', true);
+// httpRequest.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
 // httpRequest.send();

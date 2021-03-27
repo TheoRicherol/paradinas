@@ -41,7 +41,6 @@ if (isset($_GET["page"]) && $_GET["page"] == "home") {
 	require "controllers/color-list-controller.php";
 } else if (isset($_GET["page"]) && $_GET["page"] == "basket") {
     require "controllers/basket-controller.php";
-}
-else {
+} else {
 	header("Location: /home");
 }

@@ -71,7 +71,7 @@ include 'view/includes/header.php';
 				}
 				?>
 				<label for="engraving">Gravure</label>
-				<div class="col">
+				<div class="col" id="div-engraving">
 					<input type="text" id="engraving" name="engraving" maxlength="3">
 				</div>
 				<p class="product-price"><?= $productDetail["product_price"] ?><sup> &euro; </sup></p>

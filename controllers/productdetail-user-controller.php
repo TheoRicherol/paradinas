@@ -19,10 +19,14 @@ if (isset($_POST["addToBasket"])) {
             $arrayParameters["id_basket"] = $_SESSION["basket"];
             $IsIn->addToBasket($arrayParameters);
             $_SESSION["basketItems"] = $Basket->countItemsInBasket($_SESSION["basket"]);
+            $Basket->totalBasketPrice($_SESSION["basket"]["id"]);
+            $basketTotal = $Basket->getTotalBasketPrice($_SESSION["basket"]["id"]);
         } elseif (isset($_SESSION["basket"])) {
             $arrayParameters["id_basket"] = $_SESSION["basket"];
             $IsIn->addToBasket($arrayParameters);
             $_SESSION["basketItems"] = $Basket->countItemsInBasket($_SESSION["basket"]);
+            $Basket->totalBasketPrice($_SESSION["basket"]["id"]);
+            $basketTotal = $Basket->getTotalBasketPrice($_SESSION["basket"]["id"]);
         }
     } else {
         echo "Vous n'êtes pas connecté";

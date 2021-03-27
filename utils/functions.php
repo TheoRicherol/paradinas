@@ -44,6 +44,7 @@ function uploadPicture($id, $directory, $type)
     }
 }
 
+
 function getUserTypeForRestriction()
 {
     if (isset($_SESSION["user"]["role"])) {
