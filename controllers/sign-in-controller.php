@@ -1,7 +1,7 @@
 <?php
 $title = "Inscription - Atelier Paradinas";
 $page = "Inscription";
-require "models/Users.php";
+
 
 
 if (isset($_POST["createUser"])) {
@@ -15,21 +15,20 @@ if (isset($_POST["createUser"])) {
     $regexPostalCode = "/^[0-9]{5,6}$/";
     $regexNumber = "/^[0-9]{0,6}$/";
 
-    $Users = new Users();
     $arrayParameters = [];
     $errorMessage = [];
 
     if (empty($_POST["firstname"])) {
-        $errorMessage["firstname"] = "Vous n'avez pas rempli la case";
+        $errorMessage["firstname"] = "Veuillez renseigner un prénom";
     } elseif (!preg_match($regexName, $_POST["firstname"])) {
-        $errorMessage["firstname"] = "Veuillez utiliser des caractères autorisés";
+        $errorMessage["firstname"] = "Vous ne pouvez utiliser que des lettres/espaces/tirets";
     } else {
         unset($errorMessage["firstname"]);
         $arrayParameters["firstname"] = htmlspecialchars($_POST["firstname"]);
     }
 
     if (empty($_POST["lastname"])) {
-        $errorMessage["lastname"] = "Vous n'avez pas rempli la case";
+        $errorMessage["lastname"] = "Veuillez renseigner un nom";
     } elseif (!preg_match($regexName, $_POST["lastname"])) {
         $errorMessage["lastname"] = "Veuillez utiliser des caractères autorisés";
     } else {
@@ -38,7 +37,7 @@ if (isset($_POST["createUser"])) {
     }
 
     if (empty($_POST["birthdate"])) {
-        $errorMessage["birthdate"] = "Vous n'avez pas rempli la case";
+        $errorMessage["birthdate"] = "Veuillez renseigner une date de naissance";
     } elseif (!preg_match($regexBirth, $_POST["birthdate"])) {
         $errorMessage["birthdate"] = "Veuillez utiliser des caractères autorisés";
     } else {
@@ -47,7 +46,7 @@ if (isset($_POST["createUser"])) {
     }
 
     if (empty($_POST["phone"])) {
-        $errorMessage["phone"] = "Vous n'avez pas rempli la case";
+        $errorMessage["phone"] = "Veuillez renseigner un numéro de téléphone";
     } elseif (!preg_match($regexPhone, $_POST["phone"])) {
         $errorMessage["phone"] = "Veuillez utiliser des caractères autorisés";
     } else {
@@ -56,16 +55,16 @@ if (isset($_POST["createUser"])) {
     }
 
     if (empty($_POST["mail"])) {
-        $errorMessage["mail"] = "Vous n'avez pas rempli la case";
+        $errorMessage["mail"] = "Veuillez renseigner un mail";
     } elseif (!preg_match($regexMail, $_POST["mail"])) {
-        $errorMessage["mail"] = "Veuillez utiliser des caractères autorisés";
+        $errorMessage["mail"] = "Veuillez renseigner une adresse au format exemple@mail.fr";
     } else {
         unset($errorMessage["mail"]);
         $arrayParameters["mail"] = htmlspecialchars($_POST["mail"]);
     }
 
     if (empty($_POST["username"])) {
-        $errorMessage["username"] = "Vous n'avez pas rempli la case";
+        $errorMessage["username"] = "Veuillez renseigner un nom d'utilisateur";
     } elseif (!preg_match($regexUsername, $_POST["username"])) {
         $errorMessage["username"] = "Veuillez utiliser des caractères autorisés";
     } else {
@@ -74,16 +73,16 @@ if (isset($_POST["createUser"])) {
     }
 
     if (empty($_POST["adress-number"])) {
-        $errorMessage["adress-number"] = "Vous n'avez pas rempli la case";
+        $errorMessage["adress-number"] = "Veuillez renseigner un numéro de rue";
     } elseif (!preg_match($regexNumber, $_POST["adress-number"])) {
-        $errorMessage["adress-number"] = "Veuillez utiliser des caractères autorisés";
+        $errorMessage["adress-number"] = "Veuillez n'utiliser que des chiffres";
     } else {
         unset($errorMessage["adress-number"]);
         $arrayParameters["adress-number"] = htmlspecialchars($_POST["adress-number"]);
     }
 
     if (empty($_POST["adress-street"])) {
-        $errorMessage["adress-street"] = "Vous n'avez pas rempli la case";
+        $errorMessage["adress-street"] = "Veuillez renseigner un nom de rue";
     } else {
         unset($errorMessage["adress-street"]);
         $arrayParameters["adress-street"] = htmlspecialchars($_POST["adress-street"]);
@@ -92,30 +91,30 @@ if (isset($_POST["createUser"])) {
     $arrayParameters["adress-complement"] = htmlspecialchars($_POST["adress-complement"]);
 
     if (empty($_POST["postal-code"])) {
-        $errorMessage["postal-code"] = "Vous n'avez pas rempli la case";
+        $errorMessage["postal-code"] = "Veuillez renseigner votre code postal";
     } elseif (!preg_match($regexPostalCode, $_POST["postal-code"])) {
-        $errorMessage["postal-code"] = "Veuillez utiliser des caractères autorisés";
+        $errorMessage["postal-code"] = "Veuillez n'utiliser que des chiffres";
     } else {
         unset($errorMessage["postal-code"]);
         $arrayParameters["postal-code"] = htmlspecialchars($_POST["postal-code"]);
     }
 
     if (empty($_POST["city"])) {
-        $errorMessage["city"] = "Vous n'avez pas rempli la case";
+        $errorMessage["city"] = "Veuillez renseigner votre ville";
     } else {
         unset($errorMessage["city"]);
         $arrayParameters["adress_city"] = htmlspecialchars($_POST["city"]);
     }
 
     if (empty($_POST["country"])) {
-        $errorMessage["country"] = "Vous n'avez pas rempli la case";
+        $errorMessage["country"] = "Veuillez renseigner votre pays";
     } else {
         unset($errorMessage["country"]);
         $arrayParameters["country"] = htmlspecialchars($_POST["country"]);
     }
 
     if (empty($_POST["password"])) {
-        $errorMessage["password"] = "Vous n'avez pas rempli la case";
+        $errorMessage["password"] = "Veuillez renseigner un mot de passe valide";
     } elseif (!preg_match($regexPassword, $_POST["password"])) {
         $errorMessage["password"] = "Votre mot de passe doit contenir une majuscule, une minuscule, un chiffre et une ponctuation";
     } elseif (!empty($_POST["password"]) && $_POST["password"] != $_POST["password-confirm"]) {
@@ -126,7 +125,8 @@ if (isset($_POST["createUser"])) {
     }
 
     if (empty($errorMessage)) {
-        $newUser = $Users->addUser($arrayParameters);
+        $newUser = $User->addUser($arrayParameters);
+        $newUser = $User->addUser($arrayParameters);
         if ($newUser) {
             header('Location: /login');
         }

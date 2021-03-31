@@ -41,7 +41,7 @@ class Basket extends Database
 
     public function createBasket($id)
     {
-        $query = "INSERT INTO `basket` (id_users) VALUES ( :user_id )";
+        $query = "INSERT INTO `basket` (id_users , basket_created_date , basket_temp , basket_total) VALUES ( :user_id  , default , default , null )";
         $buildQuery = parent::getDb()->prepare($query);
         $buildQuery->bindValue("user_id", $id, PDO::PARAM_INT);
         return $buildQuery->execute();
@@ -87,6 +87,15 @@ class Basket extends Database
         return !empty($resultQuery) ? $resultQuery : false;
     }
 
+    public function deleteBasketContent($id)
+    {
+        $query = "DELETE FROM is_in WHERE id_basket = :id_basket";
+        $buildQuery = parent::getDb()->prepare($query);
+        $buildQuery->bindValue("id_basket" , $id , PDO::PARAM_INT);
+        return $buildQuery->execute();
+
+    }
+
     public function deleteBasket($id){
         $query = "DELETE FROM `basket` WHERE `basket`.`id` = :id;";
         $buildQuery = parent::getDb()->prepare($query);
@@ -95,7 +104,7 @@ class Basket extends Database
     }
 
     public function getBasketContents($id){
-        $query = "SELECT `products`.`product_name` , `product_type`.`product_type` , `products`.`product_price` , `is_in`.`quantity` , `is_in`.`total` , `is_in`.`id` , `color_leather`.`color` AS `leather`  , `color_lining`.`color` AS lining , `is_in`.`engraving` FROM `basket` INNER JOIN `is_in` on `basket`.`id` = `is_in`.`id_basket` INNER JOIN `products` ON `is_in`.`id_product` = `products`.`id` INNER JOIN `product_type` ON `products`.`id_product_type` = `product_type`.`id` INNER JOIN `color_leather` ON `is_in`.`id_color_leather` = `color_leather`.`id` INNER JOIN `color_lining` ON `is_in`.`id_color_lining` = `color_lining`.`id` WHERE `basket`.`id` = :id";
+        $query = "SELECT `products`.`product_name` , `products`.`id` AS id_product , `product_type`.`product_type` , `products`.`product_price` , `is_in`.`quantity` , `is_in`.`total` , `is_in`.`id` , `color_leather`.`color` AS `leather`  , `color_lining`.`color` AS lining , `is_in`.`engraving` FROM `basket` LEFT JOIN `is_in` on `basket`.`id` = `is_in`.`id_basket` LEFT JOIN `products` ON `is_in`.`id_product` = `products`.`id` INNER JOIN `product_type` ON `products`.`id_product_type` = `product_type`.`id` LEFT JOIN `color_leather` ON `is_in`.`id_color_leather` = `color_leather`.`id` LEFT JOIN `color_lining` ON `is_in`.`id_color_lining` = `color_lining`.`id` WHERE `basket`.`id` = :id";
         $buildQuery = parent::getDb()->prepare($query);
         $buildQuery->bindValue("id" , $id , PDO::PARAM_INT);
         $buildQuery->execute();

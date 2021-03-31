@@ -15,12 +15,12 @@ include "view/includes/header.php";
     <table>
         <thead>
             <th>Produit</th>
-            <th>Description</th>
-            <th>Prix</th>
+            <th class="non-displayed-mobile">Description</th>
+            <th class="non-displayed-mobile">Prix</th>
             <th>Type</th>
-            <th><i class="far fa-image"></i></th>
-            <th></th>
-            <th></th>
+            <th class="non-displayed-mobile"><i class="far fa-image"></i></th>
+            <td class="reduced-cell"></td>
+            <td class="reduced-cell"></td>
         </thead>
         <tbody>
             <?php
@@ -29,16 +29,18 @@ include "view/includes/header.php";
 
                 <tr>
                     <td><?= $value["product_name"] ?></td>
-                    <td><?= mb_strimwidth(nl2br($value["product_description"]), 0, 30, "…") ?></td>
-                    <td><?= $value["product_price"] . "€" ?></td>
+                    <td class="non-displayed-mobile"><?= mb_strimwidth(nl2br($value["product_description"]), 0, 30, "…") ?></td>
+                    <td class="non-displayed-mobile"><?= $value["product_price"] . "€" ?></td>
                     <td><?= $value["product_type"] ?></td>
-                    <td><?php
-                        $countPictures = $Picture->countAllPictureOfOneProduct($value["id"]);
-                        echo $countPictures[0]["numberOfPics"];
+                    <td class="non-displayed-mobile"><?php
+                        if (isset($Picture)) {
+                            $countPictures = $Picture->countAllPictureOfOneProduct($value["id"]);
+                            echo $countPictures[0]["numberOfPics"];
+                        }
                         ?></td>
-                    <td>
+                    <td class="reduced-cell">
                         <form action="/productupdate" method="post"><button type="submit" value="<?= $value['id'] ?>" name="updateProduct"><i class="far fa-edit"></i></button></form>
-                    <td>
+                    <td class="reduced-cell">
                         <form action="" method="post"><button type="submit" value="<?= $value['id'] ?>" name="deleteProduct"><i class="far fa-trash-alt"></i></button></form>
                     </td>
                 </tr>
@@ -48,6 +50,10 @@ include "view/includes/header.php";
             ?>
         </tbody>
     </table>
+    <div class="buttons-add">
+        <a href="/account"><button>Page admin</button></a>
+        <a href="/colorlist"><button>Liste des couleurs</button></a>
+    </div>
 </div>
 <?php
 require "view/includes/footer.html"

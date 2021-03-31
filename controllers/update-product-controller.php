@@ -46,6 +46,8 @@ if (isset($_POST["updateProductPage"])) {
 }
 
 if (isset($_POST["deletePicture"])) {
+
+    unlink(realpath($_POST["pictureName"]));
     $Picture->deletePicture($_POST["deletePicture"]);
 }
 

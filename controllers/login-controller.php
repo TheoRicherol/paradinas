@@ -42,6 +42,8 @@ if (!isset($_SESSION["user"])) {
                 } else {
                     $errorMessage["login"] = "Il y a eu un soucis dans la saisie de vos identifiants";
                 }
+            } else {
+                $errorMessage["login"] = "Il y a eu un soucis dans la saisie de vos identifiants";
             }
         }
     }

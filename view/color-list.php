@@ -1,4 +1,6 @@
 <?php
+require "utils/functions.php";
+getUserTypeForRestriction();
 include "view/includes/header.php";
 ?>
 
@@ -79,6 +81,10 @@ include "view/includes/header.php";
             </table>
         </div>
 
+    </div>
+    <div class="buttons-add">
+        <a href="/account"><button>Page admin</button></a>
+        <a href="/adminproducts"><button>Liste des produits</button></a>
     </div>
 </div>
 

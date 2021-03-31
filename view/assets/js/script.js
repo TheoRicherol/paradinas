@@ -1,14 +1,16 @@
 let titleAnim = document.getElementById("titleAnim"),
     menu = document.getElementById("menu"),
+    menuModal = document.getElementById("modal-menu"),
     collection = document.querySelectorAll(".item"),
     collectionProducts = document.querySelectorAll(".item-product"),
     desktop = window.matchMedia("(min-width:850px)"),
     closeMenu = document.querySelector(".close-menu"),
     burgerMenu = document.querySelector(".contLigne"),
-    popupToggle = document.getElementById("icon-popup"),
-    popupUser = document.getElementById("popup-user"),
     regexPassword = /^(?=.*\d)(?=.*[A-Z])(?=.*[a-z])(?=.*[^\w\d\s:])([^\s]){6,}$/,
-    regexEngraving = /^[a-zA-Z]{0,3}$/;
+    regexEngraving = /^[a-zA-Z]{0,3}$/,
+    labels = document.getElementsByTagName("label"),
+    error = document.createElement("p");
+;
 
 
 [...collection].forEach(element => {
@@ -20,16 +22,39 @@ let titleAnim = document.getElementById("titleAnim"),
     }
 });
 
+
 // burger menu
 
+function burgerMenuTrigger() {
+
+}
+
 burgerMenu.addEventListener('click', function () {
-    burgerMenu.classList.toggle("active");
-    closeMenu.classList.toggle("active");
-    menu.classList.toggle("nav-show");
-    menu.classList.toggle("nav-hide");
-    menu.style.transition("all .5s ease");
+    menuModal.classList.toggle("hide");
+    setTimeout(
+        function () {
+            burgerMenu.classList.toggle("active");
+            closeMenu.classList.toggle("active");
+            menu.classList.toggle("nav-show");
+            menu.classList.toggle("nav-hide");
+        }, 1
+    )
 })
 
+window.ontouchend = function (event) {
+    if (event.target === menuModal) {
+        burgerMenu.classList.toggle("active");
+        closeMenu.classList.toggle("active");
+        menu.classList.toggle("nav-show");
+        menu.classList.toggle("nav-hide");
+        setTimeout(
+            function () {
+                menuModal.classList.toggle("hide");
+            }, 10
+        )
+
+    }
+}
 
 function showNav() {
     menu.style.top = "10vh";
@@ -41,7 +66,7 @@ function hideNav() {
     menu.style.transition = "all 250ms ease-in-out";
 }
 
-// Script pour responsive
+// Script for desktop
 
 
 if (desktop.matches) {
@@ -69,29 +94,8 @@ if (desktop.matches) {
         }
     });
 
-    popupToggle.addEventListener("click", function () {
-        if (popupUser.style.display == "none") {
-            popupUser.style.display = "block";
-        } else if (popupUser.style.display == "block") {
-            popupUser.style.display = "none";
-        }
-    });
 
-    popupToggle.addEventListener("mouseenter", function () {
-        popupUser.style.display = "block";
-        setTimeout(function () {
-            popupUser.style.opacity = "1";
-        }, 0)
-    });
-
-    popupToggle.addEventListener("mouseleave", function () {
-        popupUser.style.opacity = "0";
-        setTimeout(function () {
-            popupUser.style.display = "none";
-        }, 0)
-    });
-
-    // Collections de produits 
+    // Collections of products
 
     collectionProducts.forEach(product => {
         product.addEventListener("mouseenter", function () {
@@ -103,19 +107,33 @@ if (desktop.matches) {
             product.querySelector(".product-pic").style.filter = "";
         })
 
-    })
+    });
 
-} else {
-    popupToggle.addEventListener("touchstart", function (evt) {
-        evt.preventDefault();
-        if (popupUser.style.opacity == 0) {
-            popupUser.style.opacity = 1;
-            popupUser.style.display = "block";
-        } else {
-            popupUser.style.opacity = 0;
-            popupUser.style.display = "none";
-        }
-    })
+    // Animation Formularies
+
+    if (labels != null) {
+        [...labels].forEach(label => {
+            let input = label.children[0];
+            if (input != null) {
+                if (input.value !== "") {
+                    label.style.fontSize = ".8rem";
+                    input.style.height = "5vh";
+                }
+                input.addEventListener("focus", function () {
+                    label.style.fontSize = ".8rem";
+                    input.style.height = "5vh";
+                })
+                input.addEventListener("blur", function () {
+                    if (input.value === "") {
+                        label.style.fontSize = "1rem";
+                        input.style.height = "0vh";
+                    }
+                })
+            }
+        })
+    }
+
+
 }
 
 
@@ -125,12 +143,13 @@ let picSecondary = document.querySelectorAll(".pic-secondary"),
     picPrimary = document.querySelector("#pic-primary");
 
 picSecondary.forEach(picture => {
-    if (picture.src == picSecondary.src) {
-        picture.classList.toggle("images-selected");
-    }
-    picture.onclick = function () {
+    picture.onmouseenter = function () {
         picPrimary.src = picture.src;
-
+        picture.classList.add("image-selected");
+    }
+    picture.onmouseleave = function () {
+        console.log("ok");
+        picture.classList.remove("image-selected");
     }
 })
 
@@ -138,21 +157,21 @@ picSecondary.forEach(picture => {
 
 let gravure = document.getElementById("engraving"),
     gravureDiv = document.getElementById("div-engraving");
-if (gravure !=null) {
+if (gravure != null) {
     let error = document.createElement("p",)
     gravure.addEventListener("keyup", function () {
-        if(!gravure.value.match(regexEngraving)){
+        if (!gravure.value.match(regexEngraving)) {
             gravure.style.border = "2px red";
             gravure.style.borderStyle = "none none solid none";
             gravureDiv.append(error);
             error.classList.add("errors");
             error.innerText = "La gravure est limitée à 3 lettres";
-        } else{
+        } else {
             gravure.style.border = "2px green";
             gravure.style.borderStyle = "none none solid none";
             error.innerText = "";
         }
-   })
+    })
 }
 
 
@@ -160,34 +179,44 @@ if (gravure !=null) {
 
 let password = document.getElementById("password"),
     passwordConfirm = document.getElementById("password-confirm"),
-    divpwd = document.getElementById("div-password");
+    errorPassword = document.getElementById("error-password");
+errorPasswordConfirm = document.getElementById("error-password-confirm")
 if (password != null) {
-
-    password.onkeyup = function () {
-        if (password.value == "") {
-            divpwd.innerText = "Veuillez entrer quelque chose";
+    password.onblur = function () {
+        if (password.value === "") {
+            password.style.border = "2px red";
+            password.style.borderStyle = "none none solid none";
+            errorPassword.innerText = "Veuillez reinseigner un mot de passe";
         } else if (!password.value.match(regexPassword)) {
             password.style.border = "2px red";
             password.style.borderStyle = "none none solid none";
+            errorPassword.innerHTML = "Veuillez utilisez au moins : <br/> • 8 caractères   • Une majuscule <br/>  • Un chiffre <br/>  • Un signe de ponctuation";
         } else {
             password.style.border = "2px green";
             password.style.borderStyle = "none none solid none";
+            errorPassword.innerHTML = "";
         }
     }
-
-    passwordConfirm.onblur = function () {
-        if (passwordConfirm.value != password.value) {
-            password.style.border = "2px red";
-            password.style.borderStyle = "none none solid none";
-            passwordConfirm.style.border = "2px red";
-            passwordConfirm.style.borderStyle = "none none solid none";
-        } else if (passwordConfirm.value === password.value) {
-            password.style.border = "2px green";
-            password.style.borderStyle = "none none solid none";
-            passwordConfirm.style.border = "2px green";
-            passwordConfirm.style.borderStyle = "none none solid none";
+    if (passwordConfirm !== null)
+        passwordConfirm.onblur = function () {
+            if (passwordConfirm.value !== password.value) {
+                password.style.border = "2px red";
+                password.style.borderStyle = "none none solid none";
+                passwordConfirm.style.border = "2px red";
+                passwordConfirm.style.borderStyle = "none none solid none";
+                errorPasswordConfirm.innerHTML = "Les mots de passe ne correspondent pas";
+            } else if ((passwordConfirm.value && password.value) === "") {
+                passwordConfirm.style.border = "2px red";
+                passwordConfirm.style.borderStyle = "none none solid none";
+                errorPasswordConfirm.innerHTML = "Veuillez reinseigner un mot de passe";
+            } else if (passwordConfirm.value === password.value && passwordConfirm.value.match(regexPassword)) {
+                password.style.border = "2px green";
+                password.style.borderStyle = "none none solid none";
+                passwordConfirm.style.border = "2px green";
+                passwordConfirm.style.borderStyle = "none none solid none";
+                errorPasswordConfirm.innerHTML = ""
+            }
         }
-    }
 }
 
 
@@ -196,11 +225,11 @@ if (password != null) {
 
 let usernameInput = document.getElementById("username");
 if (usernameInput != null) {
-    usernameInput.addEventListener("blur", async function () {
+    usernameInput.addEventListener("keyup", async function () {
         let dataSearch = {
             username: usernameInput.value
         };
-        if (dataSearch.username != "") {
+        if (dataSearch.username !== "") {
             let response = await fetch("/controllers/username-check-controller.php?username=" + dataSearch.username, {
                 method: "GET",
                 headers: {
@@ -208,14 +237,17 @@ if (usernameInput != null) {
                 }
             });
             let result = await response.json();
-            console.log(result);
             let validationUsername = document.getElementById("validationUsername");
             let submitButton = document.getElementById("submitButton");
-            if (result != "Valide") {
+            if (result !== "Valide") {
+                usernameInput.style.border = "2px red";
+                usernameInput.style.borderStyle = "none none solid none";
+                validationUsername.classList.add("errors");
                 validationUsername.innerText = "Nom utilisateur non disponible";
                 submitButton.setAttribute("disabled", "");
-            } else if (result == "Valide") {
-                validationUsername.innerText = "Valide";
+            } else if (result === "Valide") {
+                usernameInput.style.border = "2px green";
+                usernameInput.style.borderStyle = "none none solid none";
                 submitButton.removeAttribute("disabled");
             } else {
                 validationUsername.innerText = "";
@@ -224,16 +256,3 @@ if (usernameInput != null) {
     })
 }
 
-// Ajax
-
-// var httpRequest = new XMLHttpRequest();
-//
-// httpRequest.onreadystatechange = function () {
-//     if (httpRequest.readyState === 4) {
-//       alert(this.responseText);
-//     }
-// }
-//
-// httpRequest.open('POST', '/basket', true);
-// httpRequest.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-// httpRequest.send();

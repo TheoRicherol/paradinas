@@ -1,7 +1,6 @@
 <?php
 $title = "Modification - Atelier Paradinas";
 $page = "Modification du profil";
-require "models/Users.php";
 
 
 if (isset($_POST["createUser"])) {
@@ -15,7 +14,6 @@ if (isset($_POST["createUser"])) {
     $regexPostalCode = "/^[0-9]{5,6}$/";
     $regexNumber = "/^[0-9]{0,6}$/";
 
-    $Users = new Users();
     $arrayParameters = [];
     $errorMessage = [];
 
@@ -101,31 +99,39 @@ if (isset($_POST["createUser"])) {
         $arrayParameters["postal-code"] = htmlspecialchars($_POST["postal-code"]);
     }
 
+    if (empty($_POST["city"])) {
+        $errorMessage["city"] = "Veuillez renseigner votre ville";
+    } else {
+        unset($errorMessage["city"]);
+        $arrayParameters["adress_city"] = htmlspecialchars($_POST["city"]);
+    }
+
     if (empty($_POST["country"])) {
         $errorMessage["country"] = "Vous n'avez pas rempli la case";
     } else {
         unset($errorMessage["country"]);
         $arrayParameters["country"] = htmlspecialchars($_POST["country"]);
     }
-
-    if (password_verify($_POST["current-password"] , $_SESSION["user"]["password"]) ) {
-        if (empty($_POST["password"])) {
-            $errorMessage["password"] = "Vous n'avez pas rempli la case";
-        } elseif (!preg_match($regexPassword, $_POST["password"])) {
-            $errorMessage["password"] = "Votre mot de passe doit contenir une majuscule, une minuscule, un chiffre et une ponctuation";
-        } elseif (!empty($_POST["password"]) && $_POST["password"] != $_POST["password-confirm"]) {
-            $errorMessage["password"] = "Les mots de passe ne correspondent pas";
-        } else {
-            unset($errorMessage["password"]);
-            $arrayParameters["password"] = password_hash($_POST["password"], PASSWORD_BCRYPT);
+    if (!empty($_POST["current-password"])) {
+        if (password_verify($_POST["current-password"], $_SESSION["user"]["password"])) {
+            if (empty($_POST["password"])) {
+                $errorMessage["password"] = "Vous n'avez pas rempli la case";
+            } elseif (!preg_match($regexPassword, $_POST["password"])) {
+                $errorMessage["password"] = "Votre mot de passe doit contenir une majuscule, une minuscule, un chiffre et une ponctuation";
+            } elseif (!empty($_POST["password"]) && $_POST["password"] != $_POST["password-confirm"]) {
+                $errorMessage["password"] = "Les mots de passe ne correspondent pas";
+            } else {
+                unset($errorMessage["password"]);
+                $arrayParameters["password"] = password_hash($_POST["password"], PASSWORD_BCRYPT);
+            }
         }
+    } else {
+        $errorMessage["current-password"] = "Veuillez renseingner votre mot de passe actuel";
     }
-
     if (empty($errorMessage)) {
         require "utils/functions.php";
         $arrayParameters["id"] = $_SESSION["user"]["id"];
-        $updateUser = $Users->updateUser($arrayParameters);
-        var_dump($updateUser);
+        $updateUser = $User->updateUser($arrayParameters);
         if ($updateUser) {
             header('Location: /home');
         }

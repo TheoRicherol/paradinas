@@ -4,6 +4,8 @@ $title = "Ajouter un produit";
 
 $regexPrice = "/^[0-9]*$/";
 
+$productCategoryList = $ProductCategory->getAllProductsType();
+
 // Validation du formulaire d'ajout du produit
 
 if (isset($_POST["addProduct"])) {

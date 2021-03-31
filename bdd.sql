@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:8889
--- Generation Time: Mar 26, 2021 at 06:21 PM
+-- Generation Time: Mar 31, 2021 at 09:14 AM
 -- Server version: 5.7.32
 -- PHP Version: 7.4.12
 
@@ -33,7 +33,9 @@ CREATE TABLE `basket` (
 --
 
 INSERT INTO `basket` (`id`, `id_users`, `basket_created_date`, `basket_temp`, `basket_total`) VALUES
-(1, 5, '2021-03-26 13:35:29', 0, 474);
+(1, 7, '2021-03-30 17:08:22', 0, 230),
+(2, 16, '2021-03-30 17:50:17', 0, NULL),
+(3, 12, '2021-03-30 18:02:26', 0, NULL);
 
 -- --------------------------------------------------------
 
@@ -53,7 +55,7 @@ CREATE TABLE `color_leather` (
 INSERT INTO `color_leather` (`id`, `color`) VALUES
 (9, 'Marron'),
 (10, 'Noir'),
-(11, 'Noir Grainé');
+(12, 'Camel');
 
 -- --------------------------------------------------------
 
@@ -74,7 +76,7 @@ CREATE TABLE `color_leather_picture` (
 INSERT INTO `color_leather_picture` (`id`, `color_leather_picture`, `id_color_leather`) VALUES
 (3, '../view/assets/img/colors/cuir_marron.jpg', 9),
 (4, '../view/assets/img/colors/cuir_noir.jpg', 10),
-(5, '../view/assets/img/colors/cuir_noir_graine.jpg', 11);
+(6, '../view/assets/img/colors/cuir_camel.jpg', 12);
 
 -- --------------------------------------------------------
 
@@ -94,7 +96,10 @@ CREATE TABLE `color_lining` (
 INSERT INTO `color_lining` (`id`, `color`) VALUES
 (3, 'Noir'),
 (4, 'Blanc'),
-(5, 'Bleu');
+(5, 'Bleu'),
+(6, 'Marron'),
+(7, 'Vert Herbe'),
+(8, 'Vert Pomme');
 
 -- --------------------------------------------------------
 
@@ -115,7 +120,10 @@ CREATE TABLE `color_lining_picture` (
 INSERT INTO `color_lining_picture` (`id`, `color_lining_picture`, `id_color_lining`) VALUES
 (1, '../view/assets/img/colors/fil_noir.jpg', 3),
 (2, '../view/assets/img/colors/fil_blanc.jpg', 4),
-(3, '../view/assets/img/colors/fil_bleu.jpg', 5);
+(3, '../view/assets/img/colors/fil_bleu.jpg', 5),
+(4, '../view/assets/img/colors/fil_marron.jpg', 6),
+(5, '../view/assets/img/colors/fil_vert_herbe.jpg', 7),
+(6, '../view/assets/img/colors/fil_vert_pomme.jpg', 8);
 
 -- --------------------------------------------------------
 
@@ -140,7 +148,7 @@ CREATE TABLE `is_in` (
 --
 
 INSERT INTO `is_in` (`id`, `id_product`, `id_color_leather`, `id_color_lining`, `id_basket`, `id_order`, `engraving`, `quantity`, `total`) VALUES
-(17, 8, 10, 4, 1, NULL, 'z', 6, 474);
+(59, 13, 10, 4, 1, NULL, 'VP', 1, 230);
 
 -- --------------------------------------------------------
 
@@ -201,8 +209,10 @@ CREATE TABLE `products` (
 --
 
 INSERT INTO `products` (`id`, `product_name`, `product_description`, `product_price`, `id_product_type`) VALUES
-(8, 'Porte-carte', 'Porte-Cartes en cuir de veau, couleur noire, fil noir.\r\n• Contenance 4 cartes &amp; billets.\r\nProduit fabiqué à la main en France en utilisant des cuirs responsables \r\n', 79, 1),
-(9, 'Bracelet de montre', 'Bracelet de montre, en cuir, fait main.\r\n• Croco\r\n• Vert\r\n• Lining Orange', 120, 1);
+(10, 'Porte-Carte', 'Porte-carte noir\r\n• Cuir de Buffle\r\n• Cuir Noir\r\n• Fil Noir\r\nFabirqué à la main en France, contenance 4 cartes ainsi que des billets', 89, 2),
+(11, 'Porte Carte', 'Porte Carte\r\nFabriqué en France', 99, 1),
+(12, 'Bracelet de montre', 'Bracelet de montre en croco', 120, 1),
+(13, 'Sacoche', 'Sacoche bandoulière\r\n• Cuir de veau tanné à la main\r\n• Possibilité d\'avoir 2 couleurs\r\nTout fait main', 230, 1);
 
 -- --------------------------------------------------------
 
@@ -221,10 +231,12 @@ CREATE TABLE `products_pics` (
 --
 
 INSERT INTO `products_pics` (`id`, `product_pics`, `id_products`) VALUES
-(25, 'view/assets/img/7A6AE769-47A8-467F-8112-DDD0A567EB7F.jpeg', 9),
-(26, 'view/assets/img/14-1.jpg', 8),
-(27, 'view/assets/img/3.jpg', 8),
-(29, 'view/assets/img/product/Capture d’écran 2021-03-06 à 13.10.58.png', 8);
+(30, '../view/assets/img/product/Poerte-carte-noir.JPG', 10),
+(31, '../view/assets/img/product/Double-porte-carte.JPG', 11),
+(32, '../view/assets/img/product/bracelet-montre-1.png', 12),
+(33, '../view/assets/img/product/bracelet-montre-2.png', 12),
+(34, '../view/assets/img/product/Sacoche_zoom.JPG', 13),
+(35, '../view/assets/img/product/Sacoche_zoom2.JPG', 13);
 
 -- --------------------------------------------------------
 
@@ -294,9 +306,18 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `user_firstname`, `user_lastname`, `user_birthdate`, `user_mail`, `user_phone`, `user_adress_number`, `user_adress_street`, `user_adress_complement`, `user_adress_postal_code`, `user_adress_city`, `user_adress_country`, `user_username`, `user_password`, `id_roles`, `user_inscription_date`) VALUES
-(5, 'Théo', 'Richerol', '1996-02-04', 'theo@studio-4c.fr', '0617910429', 8, 'Boulevard Déodat de Séverac', 'Bat C APPT 403', 31300, '', 'France', 'theo', '$2y$10$2LeclZ7c/.bwARK1eToQeeC9BHxbBL/BFBf0T1ocg4/Vpszmekhlm', 2, '2021-03-22 13:04:55'),
 (6, 'Claire', 'Vaillant', '1998-02-07', 'claire.demeix@gmail.com', '0777287441', 8, 'Boulevard Déodat de Séverac', '', 31300, '', 'France', 'claire', '$2y$10$Cx0kKikJ.lp2nAZkZA1DZO9mNS/ttHoTXz1jmAU4Q6puVLtvtLhGu', 2, '2021-03-22 13:04:55'),
-(7, 'Victor', 'Paradinas', '1995-02-06', 'victor@atelierparadinas.fr', '0786115434', 10, 'VParadinas', '', 31000, 'Toulouse', 'France', 'victor', '$2y$10$lRKTrT7PEFiF1SIRghTf.uum20QE8iCEpAj/G.45f2wuatimCZL4a', 1, '2021-03-22 13:04:55');
+(7, 'Victor', 'Paradinas', '1995-02-06', 'victor@atelierparadinas.fr', '0786115434', 10, 'VParadinas', '', 31000, 'Toulouse', 'France', 'victor', '$2y$10$lRKTrT7PEFiF1SIRghTf.uum20QE8iCEpAj/G.45f2wuatimCZL4a', 1, '2021-03-22 13:04:55'),
+(8, 'Jean', 'Dupont', '1996-02-04', 'jdupont@mail.com', '0630209807', 1, 'Rue de tu me gonfle', '', 31000, 'Toulouse', 'France', 'jean', '$2y$10$mk1tgi./uvbUW6I4ozfEJenZGQZQRkEtwzKj3FSgSGJZ0FGzL8.sC', 2, '2021-03-30 14:15:50'),
+(9, 'Jean', 'Dupont', '1996-02-04', 'jdupont@mail.com', '0630209807', 1, 'Rue de tu me gonfle', '', 31000, 'Toulouse', 'France', 'jean', '$2y$10$mk1tgi./uvbUW6I4ozfEJenZGQZQRkEtwzKj3FSgSGJZ0FGzL8.sC', 2, '2021-03-30 14:15:50'),
+(10, 'Marc', 'Melo', '1996-02-04', 'marc@mail.fr', '0617910429', 12, 'Reu d\'alsace Lorraine', 'zef', 31000, 'Toulouse', 'France', 'marc', '$2y$10$DlJfQZZAMBtVa674Ee2.zek.pfRdH6eTALeNW.MMWXUTXpmqW6Io.', 2, '2021-03-30 15:04:22'),
+(11, 'Marc', 'Melo', '1996-02-04', 'marc@mail.fr', '0617910429', 12, 'Reu d\'alsace Lorraine', 'zef', 31000, 'Toulouse', 'France', 'marc', '$2y$10$DlJfQZZAMBtVa674Ee2.zek.pfRdH6eTALeNW.MMWXUTXpmqW6Io.', 2, '2021-03-30 15:04:22'),
+(12, 'Théo', 'Richerol', '1996-02-04', 'theo@studio-4c.fr', '0617910429', 8, 'Boulevard Déodat de severac', '', 31300, 'Toulouse', 'France', 'theo', '$2y$10$j9i0bYL0wWqoC55dyc6nye0bUJ3rWWEVwiMqkNsN91NQ4SgVsg8xC', 2, '2021-03-30 15:44:13'),
+(13, 'Théo', 'Richerol', '1996-02-04', 'theo@studio-4c.fr', '0617910429', 8, 'Boulevard Déodat de severac', '', 31300, 'Toulouse', 'France', 'theo', '$2y$10$j9i0bYL0wWqoC55dyc6nye0bUJ3rWWEVwiMqkNsN91NQ4SgVsg8xC', 2, '2021-03-30 15:44:13'),
+(14, 'Philippe', 'Dupont', '1996-02-04', 'phidu@mail.fr', '0617910429', 2, 'Rue de mes rousons', '', 31300, 'Toulouse', 'France', 'philippe', '$2y$10$1gId.2DbZxNszp39RzkD3uhQ5Zc7dRY1YYBX6qAtLDXgU.IhsCYOG', 2, '2021-03-30 16:35:40'),
+(15, 'Philippe', 'Dupont', '1996-02-04', 'phidu@mail.fr', '0617910429', 2, 'Rue de mes rousons', '', 31300, 'Toulouse', 'France', 'philippe', '$2y$10$1gId.2DbZxNszp39RzkD3uhQ5Zc7dRY1YYBX6qAtLDXgU.IhsCYOG', 2, '2021-03-30 16:35:40'),
+(16, 'Jean-phi', 'Test', '1990-02-02', 'test@mail.fr', '0101010101', 1, 'Rue de la bourse', '', 31000, 'Toulouse', 'France', 'jp', '$2y$10$EtOZYOUQvTw4asUzfu.gteVptNNAwDLTVqjZASZvso6.3eeWY2rjC', 2, '2021-03-30 17:49:32'),
+(17, 'Jean-phi', 'Test', '1990-02-02', 'test@mail.fr', '0101010101', 1, 'Rue de la bourse', '', 31000, 'Toulouse', 'France', 'jp', '$2y$10$EtOZYOUQvTw4asUzfu.gteVptNNAwDLTVqjZASZvso6.3eeWY2rjC', 2, '2021-03-30 17:49:32');
 
 --
 -- Indexes for dumped tables
@@ -307,7 +328,7 @@ INSERT INTO `users` (`id`, `user_firstname`, `user_lastname`, `user_birthdate`, 
 --
 ALTER TABLE `basket`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `basket_users_FK` (`id_users`);
+  ADD KEY `basket_users_FK_idx` (`id_users`);
 
 --
 -- Indexes for table `color_leather`
@@ -400,37 +421,37 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `basket`
 --
 ALTER TABLE `basket`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `color_leather`
 --
 ALTER TABLE `color_leather`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT for table `color_leather_picture`
 --
 ALTER TABLE `color_leather_picture`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `color_lining`
 --
 ALTER TABLE `color_lining`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `color_lining_picture`
 --
 ALTER TABLE `color_lining_picture`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `is_in`
 --
 ALTER TABLE `is_in`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=60;
 
 --
 -- AUTO_INCREMENT for table `orders`
@@ -448,13 +469,13 @@ ALTER TABLE `order_status`
 -- AUTO_INCREMENT for table `products`
 --
 ALTER TABLE `products`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT for table `products_pics`
 --
 ALTER TABLE `products_pics`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36;
 
 --
 -- AUTO_INCREMENT for table `product_type`
@@ -472,7 +493,7 @@ ALTER TABLE `roles`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- Constraints for dumped tables
@@ -482,7 +503,7 @@ ALTER TABLE `users`
 -- Constraints for table `basket`
 --
 ALTER TABLE `basket`
-  ADD CONSTRAINT `basket_users_FK` FOREIGN KEY (`id_users`) REFERENCES `users` (`id`);
+  ADD CONSTRAINT `basket_users_FK` FOREIGN KEY (`id_users`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `color_leather_picture`
@@ -504,7 +525,7 @@ ALTER TABLE `is_in`
   ADD CONSTRAINT `is_in_color_leather_id_fk` FOREIGN KEY (`id_color_leather`) REFERENCES `color_leather` (`id`),
   ADD CONSTRAINT `is_in_color_lining_id_fk` FOREIGN KEY (`id_color_lining`) REFERENCES `color_lining` (`id`),
   ADD CONSTRAINT `is_in_orders_id_fk` FOREIGN KEY (`id_order`) REFERENCES `orders` (`id`),
-  ADD CONSTRAINT `is_in_products_id_fk` FOREIGN KEY (`id_product`) REFERENCES `products` (`id`);
+  ADD CONSTRAINT `is_in_products_id_fk` FOREIGN KEY (`id_product`) REFERENCES `products` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `orders`
