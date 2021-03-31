@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:8889
--- Generation Time: Mar 31, 2021 at 09:14 AM
+-- Generation Time: Mar 31, 2021 at 07:58 PM
 -- Server version: 5.7.32
 -- PHP Version: 7.4.12
 
@@ -34,7 +34,6 @@ CREATE TABLE `basket` (
 
 INSERT INTO `basket` (`id`, `id_users`, `basket_created_date`, `basket_temp`, `basket_total`) VALUES
 (1, 7, '2021-03-30 17:08:22', 0, 230),
-(2, 16, '2021-03-30 17:50:17', 0, NULL),
 (3, 12, '2021-03-30 18:02:26', 0, NULL);
 
 -- --------------------------------------------------------
@@ -55,7 +54,10 @@ CREATE TABLE `color_leather` (
 INSERT INTO `color_leather` (`id`, `color`) VALUES
 (9, 'Marron'),
 (10, 'Noir'),
-(12, 'Camel');
+(12, 'Camel'),
+(23, 'Bleu'),
+(24, 'Vert'),
+(25, 'Rouge');
 
 -- --------------------------------------------------------
 
@@ -76,7 +78,10 @@ CREATE TABLE `color_leather_picture` (
 INSERT INTO `color_leather_picture` (`id`, `color_leather_picture`, `id_color_leather`) VALUES
 (3, '../view/assets/img/colors/cuir_marron.jpg', 9),
 (4, '../view/assets/img/colors/cuir_noir.jpg', 10),
-(6, '../view/assets/img/colors/cuir_camel.jpg', 12);
+(6, '../view/assets/img/colors/cuir_camel.jpg', 12),
+(8, '../view/assets/img/colors/cuir_bleu.jpg', 23),
+(9, '../view/assets/img/colors/cuir_vert.jpg', 24),
+(10, '../view/assets/img/colors/cuir_rouge.jpg', 25);
 
 -- --------------------------------------------------------
 
@@ -312,11 +317,10 @@ INSERT INTO `users` (`id`, `user_firstname`, `user_lastname`, `user_birthdate`, 
 (9, 'Jean', 'Dupont', '1996-02-04', 'jdupont@mail.com', '0630209807', 1, 'Rue de tu me gonfle', '', 31000, 'Toulouse', 'France', 'jean', '$2y$10$mk1tgi./uvbUW6I4ozfEJenZGQZQRkEtwzKj3FSgSGJZ0FGzL8.sC', 2, '2021-03-30 14:15:50'),
 (10, 'Marc', 'Melo', '1996-02-04', 'marc@mail.fr', '0617910429', 12, 'Reu d\'alsace Lorraine', 'zef', 31000, 'Toulouse', 'France', 'marc', '$2y$10$DlJfQZZAMBtVa674Ee2.zek.pfRdH6eTALeNW.MMWXUTXpmqW6Io.', 2, '2021-03-30 15:04:22'),
 (11, 'Marc', 'Melo', '1996-02-04', 'marc@mail.fr', '0617910429', 12, 'Reu d\'alsace Lorraine', 'zef', 31000, 'Toulouse', 'France', 'marc', '$2y$10$DlJfQZZAMBtVa674Ee2.zek.pfRdH6eTALeNW.MMWXUTXpmqW6Io.', 2, '2021-03-30 15:04:22'),
-(12, 'Théo', 'Richerol', '1996-02-04', 'theo@studio-4c.fr', '0617910429', 8, 'Boulevard Déodat de severac', '', 31300, 'Toulouse', 'France', 'theo', '$2y$10$j9i0bYL0wWqoC55dyc6nye0bUJ3rWWEVwiMqkNsN91NQ4SgVsg8xC', 2, '2021-03-30 15:44:13'),
+(12, 'Théo', 'Richerol', '1996-02-04', 'theo@studio-4c.fr', '0617910429', 8, 'Boulevard Déodat de severac', 'Bat C APPT 403', 31300, 'Toulouse', 'France', 'theo', '$2y$10$hbLZqhzJXn65vjH.3QXRAe5fTezIECpNCOVSCf/7modcdI1cOCwKy', 2, '2021-03-30 15:44:13'),
 (13, 'Théo', 'Richerol', '1996-02-04', 'theo@studio-4c.fr', '0617910429', 8, 'Boulevard Déodat de severac', '', 31300, 'Toulouse', 'France', 'theo', '$2y$10$j9i0bYL0wWqoC55dyc6nye0bUJ3rWWEVwiMqkNsN91NQ4SgVsg8xC', 2, '2021-03-30 15:44:13'),
 (14, 'Philippe', 'Dupont', '1996-02-04', 'phidu@mail.fr', '0617910429', 2, 'Rue de mes rousons', '', 31300, 'Toulouse', 'France', 'philippe', '$2y$10$1gId.2DbZxNszp39RzkD3uhQ5Zc7dRY1YYBX6qAtLDXgU.IhsCYOG', 2, '2021-03-30 16:35:40'),
 (15, 'Philippe', 'Dupont', '1996-02-04', 'phidu@mail.fr', '0617910429', 2, 'Rue de mes rousons', '', 31300, 'Toulouse', 'France', 'philippe', '$2y$10$1gId.2DbZxNszp39RzkD3uhQ5Zc7dRY1YYBX6qAtLDXgU.IhsCYOG', 2, '2021-03-30 16:35:40'),
-(16, 'Jean-phi', 'Test', '1990-02-02', 'test@mail.fr', '0101010101', 1, 'Rue de la bourse', '', 31000, 'Toulouse', 'France', 'jp', '$2y$10$EtOZYOUQvTw4asUzfu.gteVptNNAwDLTVqjZASZvso6.3eeWY2rjC', 2, '2021-03-30 17:49:32'),
 (17, 'Jean-phi', 'Test', '1990-02-02', 'test@mail.fr', '0101010101', 1, 'Rue de la bourse', '', 31000, 'Toulouse', 'France', 'jp', '$2y$10$EtOZYOUQvTw4asUzfu.gteVptNNAwDLTVqjZASZvso6.3eeWY2rjC', 2, '2021-03-30 17:49:32');
 
 --
@@ -427,13 +431,13 @@ ALTER TABLE `basket`
 -- AUTO_INCREMENT for table `color_leather`
 --
 ALTER TABLE `color_leather`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
 
 --
 -- AUTO_INCREMENT for table `color_leather_picture`
 --
 ALTER TABLE `color_leather_picture`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `color_lining`
@@ -451,7 +455,7 @@ ALTER TABLE `color_lining_picture`
 -- AUTO_INCREMENT for table `is_in`
 --
 ALTER TABLE `is_in`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=60;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=63;
 
 --
 -- AUTO_INCREMENT for table `orders`
