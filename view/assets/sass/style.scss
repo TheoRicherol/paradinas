@@ -1428,3 +1428,21 @@ body {
   filter: sepia(100%) blur(1px);
   transition: all .5s ease-in-out;
 }
+
+footer {
+  font-variant:normal;
+  display: flex;
+  flex-direction: row;
+  justify-content:space-around;
+  height: 5vh;
+  width: 100%;
+  background-color:$color;
+  color: $color-low;
+  align-items:center;
+a{
+color: $color-low;
+&:visited{
+  color:$color-medium;
+}
+}
+}
